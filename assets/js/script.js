@@ -13,8 +13,10 @@ const btn = document.getElementById ("button");
 btn.addEventListener ("click", (event)=>{
     event.preventDefault();
 
-let paciente = new Mascota(nombreMascota, motivoConsulta,tipo,dueño,lugarResidencia,numeroTelefonico);
-console.log (paciente)
+let paciente = new Mascota(nombreMascota,motivoConsulta,tipo,dueño,lugarResidencia,numeroTelefonico);
+console.log (paciente) 
+
+const propietario = paciente.datosPropietario();
 
 let resultado = document.getElementById("resultado");
 resultado.innerHTML = 
@@ -22,13 +24,14 @@ resultado.innerHTML =
 <div style="border: 1px; border-color: black; border-style: solid;">
 <p class="mt-3">Datos agregados</p>
 <ul class = "text-center" >
-    <li>El nombre del dueño es: ${dueño}. El domicilio es: ${lugarResidencia}, y el número telefónico de contacto: ${numeroTelefonico}.</li>
-    <li>El tipo de animal es un: ${tipo}, mientras que el nombre de la mascota es: ${nombreMascota}, y la enfermedad es: ${motivoConsulta}.</li>
+    <li>El nombre del dueño es: ${propietario.nombre}. El domicilio es: ${propietario.direccion}, y el número telefónico de contacto: ${propietario.telefono}.</li>
+    <li>El tipo de animal es un: ${paciente.tipo}, mientras que el nombre de la mascota es: ${paciente.nombreMascota}, y la enfermedad es: ${paciente.motivoConsulta}.</li>
 </ul>
 </div>
 `
 
 })
+
 
 //Clases
 
@@ -39,7 +42,11 @@ class Propietario {
         this.telefono = telefono;
     }
     datosPropietario (){
-        return `${this.nombre} - ${this.direccion} - ${this.telefono}`
+        return {
+            nombre: this.nombre,
+            direccion: this.direccion,
+            telefono: this.telefono,
+        }
     }
     
 }
@@ -55,10 +62,10 @@ get tipo(){
 }
 
 class Mascota extends Animal {
-    constructor (nombreMascota, enfermedad, tipoAnimal, nombrePropietario, direccionPropietario, telefonoPropietario){
+    constructor (nombreMascota, motivoConsulta, tipoAnimal, nombrePropietario, direccionPropietario, telefonoPropietario){
         super (tipoAnimal, nombrePropietario, direccionPropietario, telefonoPropietario)
         this._nombreMascota = nombreMascota;
-        this._enfermedad = enfermedad;
+        this._motivoConsulta = motivoConsulta;
     }
 get nombreMascota (){
     return this._nombreMascota = nombreMascota;
@@ -66,10 +73,10 @@ get nombreMascota (){
 set nombreMascota (nombreMascota_nuevo){
     this._nombreMascota = nombreMascota_nuevo;
     }
-get enfermedad (){
-    return this._enfermedad = enfermedad; 
+get motivoConsulta (){
+    return this._motivoConsulta = motivoConsulta; 
     }
-set enfermedad (nueva_enfermedad){
-    this._enfermedad = nueva_enfermedad;
+set motivoConsulta (nuevo_motivoConsulta){
+    this._motivoConsulta = nuevo_motivoConsulta;
     }
 }
